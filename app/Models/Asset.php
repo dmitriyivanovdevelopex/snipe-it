@@ -1970,7 +1970,6 @@ class Asset extends Depreciable
 
     public function availableForSelfCheckout()
     {
-        \Log::debug('debug status: ' . $this->status_id);
         return ($this->status_id == Asset::DEPLOYABLE) &&
             ($this->assigned_to === null) &&
             ($this->model->category->allow_self_checkout == true);
