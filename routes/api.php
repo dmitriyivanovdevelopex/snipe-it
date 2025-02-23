@@ -596,6 +596,12 @@ Route::group(['prefix' => 'v1', 'middleware' => ['api', 'throttle:api']], functi
 
     Route::put('/hardware/{asset}', [Api\AssetsController::class, 'update'])->name('api.assets.put-update');
 
+    Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+        Route::post('hardware/{id}/self-checkout',
+            [App\Http\Controllers\Api\AssetsController::class, 'selfAssign'])
+            ->name('api.assets.selfassign');
+    });
+
     Route::resource('hardware',
         Api\AssetsController::class,
         ['names' => [

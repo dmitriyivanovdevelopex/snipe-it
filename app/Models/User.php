@@ -195,6 +195,26 @@ class User extends SnipeModel implements AuthenticatableContract, AuthorizableCo
     }
 
     /**
+     * Check if the user has a specific permission
+     *
+     * @param string $permission The permission to check for
+     * @return bool
+     */
+    public function hasPermission($permission)
+    {
+        // Decode stored permissions from JSON
+        $userPermissions = $this->decodePermissions();
+
+        // If user has no permissions or permissions is null
+        if (is_null($userPermissions)) {
+            return false;
+        }
+
+        // Check if the specific permission exists and is set to 1/true
+        return isset($userPermissions[$permission]) && $userPermissions[$permission] == '1';
+    }
+
+    /**
      * Checks if the user is a SuperUser
      *
      * @author A. Gianotto <snipe@snipe.net>
@@ -882,8 +902,6 @@ class User extends SnipeModel implements AuthenticatableContract, AuthorizableCo
             ->orWhere('users.employee_num', 'LIKE', '%' . $search . '%')
             ->orWhere('users.username', 'LIKE', '%' . $search . '%')
             ->orwhereRaw('CONCAT(users.first_name," ",users.last_name) LIKE \''.$search.'%\'');
-
-
 
 
     }

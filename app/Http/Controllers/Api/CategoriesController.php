@@ -40,6 +40,7 @@ class CategoriesController extends Controller
             'licenses_count',
             'image',
             'notes',
+            'allow_self_checkout',
         ];
 
         $categories = Category::select([
@@ -54,6 +55,7 @@ class CategoriesController extends Controller
             'checkin_email',
             'image',
             'notes',
+            'allow_self_checkout',
             ])
             ->with('adminuser')
             ->withCount('accessories as accessories_count', 'consumables as consumables_count', 'components as components_count', 'licenses as licenses_count');
@@ -165,7 +167,7 @@ class CategoriesController extends Controller
     public function show($id) : array
     {
         $this->authorize('view', Category::class);
-        $category = Category::withCount('assets as assets_count', 'accessories as accessories_count', 'consumables as consumables_count', 'components as components_count', 'licenses as licenses_count')->findOrFail($id);
+        $category = Category::withCount('assets as assets_count', 'accessories as accessories_count', 'consumables as consumables_count', 'components as components_count', 'licenses as licenses_count','allow_self_checkout')->findOrFail($id);
         return (new CategoriesTransformer)->transformCategory($category);
 
     }

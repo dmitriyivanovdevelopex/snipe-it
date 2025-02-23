@@ -29,6 +29,7 @@
     :require-acceptance="old('require_acceptance', $item->require_acceptance)"
     :send-check-in-email="old('checkin_email', $item->checkin_email)"
     :use-default-eula="old('use_default_eula', $item->use_default_eula)"
+    :allow-self-checkout="old('allow_self_checkout', $item->allow_self_checkout)"
 />
 
 @include ('partials.forms.edit.image-upload', ['image_path' => app('categories_upload_path')])

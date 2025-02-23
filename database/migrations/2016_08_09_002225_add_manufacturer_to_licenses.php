@@ -14,7 +14,9 @@ class AddManufacturerToLicenses extends Migration
     {
         Schema::table('licenses', function (Blueprint $table) {
             //
-            $table->integer('manufacturer_id')->nullable();
+            if (!Schema::hasColumn('licenses', 'manufacturer_id')) {
+                $table->integer('manufacturer_id')->nullable();
+            }
         });
     }
 

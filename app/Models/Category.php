@@ -44,6 +44,7 @@ class Category extends SnipeModel
         'require_acceptance'   => 'boolean',
         'use_default_eula'   => 'boolean',
         'category_type'   => 'required|in:asset,accessory,consumable,component,license',
+        'allow_self_checkout' => 'boolean',
     ];
 
     /**
@@ -72,6 +73,7 @@ class Category extends SnipeModel
         'use_default_eula',
         'created_by',
         'notes',
+        'allow_self_checkout',
     ];
 
     use Searchable;
@@ -296,5 +298,15 @@ class Category extends SnipeModel
     public function scopeOrderByCreatedBy($query, $order)
     {
         return $query->leftJoin('users as admin_sort', 'categories.created_by', '=', 'admin_sort.id')->select('categories.*')->orderBy('admin_sort.first_name', $order)->orderBy('admin_sort.last_name', $order);
+    }
+
+    /**
+     * Whether the category can be self-checked out
+     *
+     * @return bool
+     */
+    public function canSelfCheckout()
+    {
+        return $this->allow_self_checkout === true;
     }
 }

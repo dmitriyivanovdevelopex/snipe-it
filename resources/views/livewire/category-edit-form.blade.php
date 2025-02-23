@@ -63,4 +63,14 @@
             @endif
         </div>
     </div>
+
+    <!-- Allow Self Checkout -->
+    <div class="form-group">
+        <div class="col-md-9 col-md-offset-3">
+            <label class="form-control">
+                {{ Form::checkbox('allow_self_checkout', '1', $allowSelfCheckout, ['wire:model.live' => 'allowSelfCheckout', 'aria-label'=>'allow_self_checkout']) }}
+                {{ trans('admin/hardware/general.self_checkout_enabled') }}
+            </label>
+        </div>
+    </div>
 </div>

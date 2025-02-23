@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Depreciable
 {
 
+    const DEPLOYABLE = 4;
     protected $presenter = AssetPresenter::class;
     protected $with = ['model', 'adminuser'];
 
@@ -1960,5 +1961,18 @@ class Asset extends Depreciable
 
     }
 
+    public function assignToUser(User $user)
+    {
+        $this->assigned_to = $user->id;
+        $this->assigned_type = User::class;
+        $this->save();
+    }
 
+    public function availableForSelfCheckout()
+    {
+        \Log::debug('debug status: ' . $this->status_id);
+        return ($this->status_id == Asset::DEPLOYABLE) &&
+            ($this->assigned_to === null) &&
+            ($this->model->category->allow_self_checkout == true);
+    }
 }
