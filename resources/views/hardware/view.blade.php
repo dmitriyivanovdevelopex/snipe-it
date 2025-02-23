@@ -11,7 +11,6 @@
 
 
     <div class="row">
-
         @if (!$asset->model)
             <div class="col-md-12">
                 <div class="callout callout-danger">
@@ -36,11 +35,9 @@
                 </div>
             </div>
         @endif
-
         <div class="col-md-12">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs hidden-print">
-
                     <li class="active">
                         <a href="#details" data-toggle="tab">
                           <span class="hidden-lg hidden-md">
@@ -176,8 +173,14 @@
                                         <!-- generic image goes here -->
                                     @endif
                                 </div>
-
-
+                                @can('selfAssign', $asset)
+                                    <div class="col-md-12 hidden-print" style="padding-top: 5px;">
+                                        <a href="{{ route('hardware.selfAssign', $asset->id) }}"
+                                           class="btn btn-sm btn-primary">
+                                            {{ trans('admin/hardware/general.self_checkout') }}
+                                        </a>
+                                    </div>
+                                @endcan
                                 @if ($asset->deleted_at=='')
                                     @can('update', $asset)
                                         <div class="col-md-12 hidden-print" style="padding-top: 5px;">
@@ -215,17 +218,17 @@
                                     @endif
                                 @endif
 
-                                        <!-- Add notes -->
-                                        @can('update', \App\Models\Asset::class)
-                                            <!--
+                                <!-- Add notes -->
+                                @can('update', \App\Models\Asset::class)
+                                    <!--
 
-                                            <div class="col-md-12 hidden-print" style="padding-top: 5px;">
-                                                <a href='{{ route('modal.show', 'add-note') }}?type=asset&id={{$asset->id}}' style="width: 100%" data-toggle="modal" data-target="#createModal" data-select='add-note_select_id' data-refresh="assetHistory" data-hasnopayload="true" class="btn btn-sm btn-primary btn-block btn-social hidden-print">
-                                                    <x-icon type="note" />
-                                                    {{ trans('general.add_note') }}</a>
-                                            </div>
-                                            -->
-                                        @endcan
+                                    <div class="col-md-12 hidden-print" style="padding-top: 5px;">
+                                        <a href='{{ route('modal.show', 'add-note') }}?type=asset&id={{$asset->id}}' style="width: 100%" data-toggle="modal" data-target="#createModal" data-select='add-note_select_id' data-refresh="assetHistory" data-hasnopayload="true" class="btn btn-sm btn-primary btn-block btn-social hidden-print">
+                                            <x-icon type="note" />
+                                            {{ trans('general.add_note') }}</a>
+                                    </div>
+                                    -->
+                                @endcan
 
 
 

@@ -28,6 +28,13 @@ use App\Livewire\Importer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+Route::group(['prefix' => 'hardware', 'middleware' => ['auth']], function () {
+
+    Route::get('{assetId}/self-assign', [App\Http\Controllers\Assets\AssetsController::class, 'selfAssign'
+    ])->name('hardware.selfAssign');
+});
+
+
 Route::group(['middleware' => 'auth'], function () {
     /*
     * Companies
@@ -132,6 +139,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('departments', DepartmentsController::class, [
         'parameters' => ['department' => 'department_id'],
     ]);
+
 });
 
 /*

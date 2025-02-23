@@ -102,5 +102,13 @@ return [
         'success' 		=> 'Asset requested successfully.',
         'canceled'      => 'Checkout request successfully canceled',
     ],
-
+    'unavailable' => 'This asset is not available for self-checkout',
+    'checkout' => array(
+        'success' => 'Asset checked out successfully'
+    ),
+    'self_checkout' => [
+        'success' => 'Asset checked out successfully',
+        'error' => 'Asset was not checked out, please try again',
+        'unavailable' => 'This asset is not available for self-checkout',
+    ],
 ];

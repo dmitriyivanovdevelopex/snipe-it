@@ -11,21 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        foreach ($this->add_to_table_list() as $add_table) {
-            if (!Schema::hasColumn($add_table, 'created_by')) {
-                Schema::table($add_table, function (Blueprint $add_table) {
-                    $add_table->unsignedBigInteger('created_by')->nullable()->before('created_at');
-                });
-            }
-        }
-
-        foreach ($this->existing_table_list() as $table) {
-            if (Schema::hasColumn($table, 'user_id')) {
-                Schema::table($table, function (Blueprint $table) {
-                    $table->renameColumn('user_id', 'created_by');
-                });
-            }
-        }
+//        foreach ($this->add_to_table_list() as $add_table) {
+//            if (!Schema::hasColumn($add_table, 'created_by')) {
+//                Schema::table($add_table, function (Blueprint $add_table) {
+//                    $add_table->unsignedBigInteger('created_by')->nullable()->before('created_at');
+//                });
+//            }
+//        }
+//
+//        foreach ($this->existing_table_list() as $table) {
+//            if (Schema::hasColumn($table, 'user_id')) {
+//                Schema::table($table, function (Blueprint $table) {
+//                    $table->renameColumn('user_id', 'created_by');
+//                });
+//            }
+//        }
     }
 
     /**

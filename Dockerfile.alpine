@@ -71,6 +71,10 @@ RUN \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN mkdir -p /var/www/.composer && chown apache /var/www/.composer
 
+# Install Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 # Install dependencies
 USER apache
 RUN COMPOSER_CACHE_DIR=/dev/null composer install --working-dir=/var/www/html

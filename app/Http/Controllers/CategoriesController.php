@@ -136,6 +136,7 @@ class CategoriesController extends Controller
         $category->require_acceptance = $request->input('require_acceptance', '0');
         $category->checkin_email = $request->input('checkin_email', '0');
         $category->notes = $request->input('notes');
+        $category->allow_self_checkout = $request->input('allow_self_checkout', '0');
 
         $category = $request->handleImages($category);
 

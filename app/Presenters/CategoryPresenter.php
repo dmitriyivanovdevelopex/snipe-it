@@ -43,6 +43,13 @@ class CategoryPresenter extends Presenter
                 'title' => trans('general.type'),
                 'visible' => true,
             ], [
+                'field' => 'allow_self_checkout',
+                'searchable' => false,
+                'sortable' => false,
+                'title' => trans('admin/categories/table.allow_self_checkout'),
+                'visible' => true,
+                'formatter' => 'trueFalseFormatter',
+            ], [
                 'field' => 'item_count',
                 'searchable' => false,
                 'sortable' => true,
@@ -113,7 +120,7 @@ class CategoryPresenter extends Presenter
                 'switchable' => false,
                 'title' => trans('table.actions'),
 		'formatter' => 'categoriesActionsFormatter',
-            ],
+            ]
         ];
 
         return json_encode($layout);

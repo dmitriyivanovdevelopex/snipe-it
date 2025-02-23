@@ -18,13 +18,16 @@ class CategoryEditForm extends Component
 
     public $useDefaultEula;
 
-    public function mount()
+    public $allowSelfCheckout;
+
+    public function mount($allowSelfCheckout)
     {
         $this->originalSendCheckInEmailValue = $this->sendCheckInEmail;
 
         if ($this->eulaText || $this->useDefaultEula) {
             $this->sendCheckInEmail = 1;
         }
+//        $this->allowSelfCheckout = $allowSelfCheckout;
     }
 
     public function render()
@@ -37,6 +40,7 @@ class CategoryEditForm extends Component
         if (! in_array($property, ['eulaText', 'useDefaultEula'])) {
             return;
         }
+        echo 'updated' . $property . ' ' . $value;
 
         $this->sendCheckInEmail = $this->eulaText || $this->useDefaultEula ? 1 : $this->originalSendCheckInEmailValue;
     }

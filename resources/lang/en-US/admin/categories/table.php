@@ -6,5 +6,5 @@ return array(
     'parent'   					=> 'Parent',
     'require_acceptance'      	=> 'Acceptance',
     'title'      				=> 'Asset Category Name',
-
+    'allow_self_checkout'      	=> 'Allow Self Checkout',
 );

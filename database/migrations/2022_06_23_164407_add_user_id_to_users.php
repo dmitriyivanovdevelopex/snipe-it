@@ -14,7 +14,9 @@ class AddUserIdToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('created_by')->after('activated')->nullable()->default(null);
+            if (!Schema::hasColumn('users', 'created_by')) {
+                $table->integer('created_by')->after('activated')->nullable()->default(null);
+            }
         });
     }
 

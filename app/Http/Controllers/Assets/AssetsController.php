@@ -977,4 +977,32 @@ class AssetsController extends Controller
 
         return view('hardware/requested', compact('requestedItems'));
     }
+
+    /**
+     * Self-assign an asset to the current user
+     *
+     * @param  int  $assetId
+     * @return RedirectResponse
+     */
+    public function selfAssign($assetId)
+    {
+        try {
+            $asset = Asset::findOrFail($assetId);
+            \Log::debug('debug $assetId: ' . $assetId);
+            \Log::debug('debug availableForSelfCheckout: ' . $asset->availableForSelfCheckout());
+            // Check if asset is available for self-assignment
+            if (!$asset->availableForSelfCheckout()) {
+                return redirect()->back()->with('error', trans('admin/hardware/message.self_checkout.unavailable'));
+            }
+
+            // Assign to current user
+            $asset->assignToUser(auth()->user());
+
+            return redirect()->back()->with('success', trans('admin/hardware/message.self_checkout.success'));
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', trans('admin/hardware/message.self_checkout.error'));
+        }
+    }
 }

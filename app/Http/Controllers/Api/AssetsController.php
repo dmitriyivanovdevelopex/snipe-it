@@ -35,7 +35,6 @@ use Illuminate\Support\Facades\Route;
 use App\View\Label;
 use Illuminate\Support\Facades\Storage;
 
-
 /**
  * This class controls all actions related to assets for
  * the Snipe-IT Asset Management application.
@@ -1322,5 +1321,22 @@ class AssetsController extends Controller
                 'error_file' => $e->getFile()
             ], $e->getMessage()), 500);
         }
+    }
+
+    public function selfAssign(Request $request, $id)
+    {
+        $this->authorize('self-assign', Asset::class);
+
+        $asset = Asset::findOrFail($id);
+
+        if (!$asset->availableForSelfAssignment()) {
+            return response()->json(['status' => 'error', 'message' => trans('admin/hardware/message.unavailable')], 422);
+        }
+
+        $user = auth()->user();
+
+        $asset->checkOut($user);
+
+        return response()->json(Helper::formatStandardApiResponse('success', $asset, trans('admin/hardware/message.checkout.success')));
     }
 }

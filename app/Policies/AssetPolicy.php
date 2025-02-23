@@ -20,4 +20,10 @@ class AssetPolicy extends CheckoutablePermissionsPolicy
     {
         return $user->hasAccess('assets.audit');
     }
+
+    public function selfAssign(User $user)
+    {
+        \Log::log('debug', 'selfAssign');
+        return $user->hasPermission('self.checkout_assets');
+    }
 }
