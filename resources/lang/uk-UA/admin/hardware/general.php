@@ -39,4 +39,6 @@ return [
     'custom_export' => 'Користувальницькі експорту',
     'mfg_warranty_lookup' => ':manufacturer Warranty Status ookup',
     'user_department' => 'Відділ користувача',
+    'self_checkout' => 'оформлення на менє',
+    'self_checkout_enabled' => 'Доступно для самостійного оформлення',
 ];

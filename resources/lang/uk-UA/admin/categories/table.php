@@ -6,5 +6,5 @@ return array(
     'parent'   					=> 'Батьківський',
     'require_acceptance'      	=> 'Схвалення',
     'title'      				=> 'Назва категорії актива',
-
+    'allow_self_checkout'      	=> 'Дозволити самостійне оформлення',
 );
