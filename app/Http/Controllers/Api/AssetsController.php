@@ -1335,7 +1335,8 @@ class AssetsController extends Controller
 
         $user = auth()->user();
 
-        $asset->checkOut($user);
+        // Assign to current user
+        $asset->assignToUser($user);
 
         return response()->json(Helper::formatStandardApiResponse('success', $asset, trans('admin/hardware/message.checkout.success')));
     }

@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class Asset extends Depreciable
 {
 
-    const DEPLOYABLE = 4;
+    const DEPLOYABLE = 2;
     protected $presenter = AssetPresenter::class;
     protected $with = ['model', 'adminuser'];
 
@@ -326,11 +326,12 @@ class Asset extends Depreciable
      * @param Carbon $expected_checkin
      * @param string $note
      * @param null $name
+     * @param integer $status
      * @return bool
      * @since [v3.0]
      * @return bool
      */
-    public function checkOut($target, $admin = null, $checkout_at = null, $expected_checkin = null, $note = null, $name = null, $location = null)
+    public function checkOut($target, $admin = null, $checkout_at = null, $expected_checkin = null, $note = null, $name = null, $location = null, $status = null)
     {
         if (! $target) {
             return false;
@@ -357,6 +358,10 @@ class Asset extends Depreciable
             if ($target instanceof Location) {
                 $this->location_id = $target->id;
             }
+        }
+
+        if ($status != null) {
+            $this->status_id = $status;
         }
 
         $originalValues = $this->getRawOriginal();
@@ -1965,6 +1970,7 @@ class Asset extends Depreciable
     {
         $this->assigned_to = $user->id;
         $this->assigned_type = User::class;
+        $this->status_id = 7; // In Use
         $this->save();
     }
 
