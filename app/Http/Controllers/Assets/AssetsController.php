@@ -508,6 +508,11 @@ class AssetsController extends Controller
         $tag = $tag ? $tag : $request->get('assetTag');
         $topsearch = ($request->get('topsearch') == 'true');
 
+        // If the tag is a URL, strip the path and just get the last part
+        if (preg_match('/\d+$/', parse_url($tag, PHP_URL_PATH), $matches)) {
+            $tag = $matches[0];
+        }
+
         // Search for an exact and unique asset tag match
         $assets = Asset::where('asset_tag', '=', $tag);
 
