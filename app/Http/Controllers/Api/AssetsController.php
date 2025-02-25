@@ -1027,6 +1027,11 @@ class AssetsController extends Controller
         if (null == $tag && null !== ($request->input('asset_tag'))) {
             $tag = $request->input('asset_tag');
         }
+
+        if (preg_match('/\d+$/', parse_url($tag, PHP_URL_PATH), $matches)) {
+            $tag = $matches[0];
+        }
+
         $asset = Asset::where('asset_tag', $tag)->first();
 
         if ($asset) {
@@ -1062,8 +1067,13 @@ class AssetsController extends Controller
             ], trans('admin/hardware/message.no_tag')), 200);
         }
 
+        $tag = $request->input('asset_tag');
 
-        $asset = Asset::where('asset_tag', '=', $request->input('asset_tag'))->first();
+        if (preg_match('/\d+$/', parse_url($tag, PHP_URL_PATH), $matches)) {
+            $tag = $matches[0];
+        }
+
+        $asset = Asset::where('asset_tag', '=', $tag)->first();
 
 
         if ($asset) {

@@ -443,6 +443,18 @@ dir="{{ Helper::determineLanguageDirection() }}">
                                     <span>{{ trans('general.dashboard') }}</span>
                                 </a>
                             </li>
+                            @can('audit', \App\Models\Asset::class)
+                                <li{!! (Request::is('hardware/bulkaudit') ? ' class="active"' : '') !!}>
+                                    <a href="{{ route('assets.bulkaudit') }}">
+                                        {{ trans('general.bulkaudit') }}
+                                    </a>
+                                </li>
+                            @endcan
+                            <li{!! (Request::is('hardware/quickscancheckin') ? ' class="active"' : '') !!}>
+                                <a href="{{ route('hardware/quickscancheckin') }}">
+                                    {{ trans('general.quickscan_checkin') }}
+                                </a>
+                            </li>
                         @endcan
                         @can('index', \App\Models\Asset::class)
                             <li class="treeview{{ ((Request::is('statuslabels/*') || Request::is('hardware*')) ? ' active' : '') }}">
